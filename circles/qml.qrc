@@ -4,5 +4,6 @@
         <file>MainMenu.qml</file>
         <file>MainMenuBatton.qml</file>
         <file>Game.qml</file>
+        <file>bubble.svg</file>
     </qresource>
 </RCC>
