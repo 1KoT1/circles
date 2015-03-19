@@ -4,7 +4,8 @@
 using namespace std;
 
 GameDataModel::GameDataModel(QObject *parent) :
-	QObject(parent)
+	QObject(parent),
+	mUserCreateCircle(false)
 {
 
 }
@@ -61,4 +62,12 @@ QDateTime GameDataModel::lastUpdateTime() const {
 
 void GameDataModel::setlastUpdateTime(const QDateTime &lastUpdateTime) {
 	mLastUpdateTime = lastUpdateTime;
+}
+
+bool GameDataModel::userCreateCircle() const {
+	return mUserCreateCircle;
+}
+
+void GameDataModel::setUserCreateCircle(bool userCreateCircle) {
+	mUserCreateCircle = userCreateCircle;
 }

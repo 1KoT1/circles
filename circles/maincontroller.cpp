@@ -10,7 +10,8 @@ const int udateSceneInterval = 1000 / 25;
 
 MainController::MainController(AppDataModelPtr appDataModel, QObject *parent) :
 	QObject(parent),
-	mAppDataModel(appDataModel)
+	mAppDataModel(appDataModel),
+	mGameController(nullptr)
 {
 
 }
@@ -24,6 +25,21 @@ void MainController::quit() {
 }
 
 void MainController::startGame() {
+	mGameController.reset(new GameController(mAppDataModel->gameDataModel(),
+																					 defaultRadiusOfCircles,
+																					 defaultLifeTimeOfCircles,
+																					 defaultNumberOfSpots,
+																					 defaultSpeedOfSports,
+																					 QGuiApplication::focusWindow()->size(),
+																					 this
+																					 ));
+	connect(&mTimer, SIGNAL(timeout()), mGameController.get(), SLOT(updateScene()));
+	emit gameControllerChanged();
+	mTimer.start(udateSceneInterval);
 	mAppDataModel->setDisplay(Displays::Game);
+}
+
+GameController *MainController::gameController() const {
+	return mGameController.get();
 }
 

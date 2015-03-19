@@ -27,6 +27,8 @@ private:
 	uint mNumberOfSpots;
 	double mSpeedOfSports;
 	QSizeF mGameAreaSize;
+
+	bool spotIntersectCirkle(const QPointF &spotPosition) const;
 };
 
 #endif // GAMECONTROLLER_H

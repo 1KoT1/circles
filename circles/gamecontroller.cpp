@@ -34,11 +34,56 @@ GameController::~GameController() {
 }
 
 void GameController::updateScene() {
+	auto curTime = QDateTime::currentDateTime();
+	auto deltaTime = mGameDataModel->lastUpdateTime().msecsTo(curTime);
+	mGameDataModel->setlastUpdateTime(curTime);
+
+	for(auto circle: mGameDataModel->circles()) {
+		if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles ) {
+			mGameDataModel->removeCircle(circle);
+		}
+	}
+
+	for(auto spot: mGameDataModel->spots()) {
+		auto newPosition = spot->position() + spot->speed() * (deltaTime / 1000.0);
+		if(newPosition.x() < 0) {
+			newPosition.setX(0 - newPosition.x());
+			spot->setSpeed(QPointF(-spot->speed().x(), spot->speed().y()));
+		}
+		if(newPosition.y() < 0) {
+			newPosition.setY(0 - newPosition.y());
+			spot->setSpeed(QPointF(spot->speed().x(), -spot->speed().y()));
+		}
+		if(newPosition.x() > mGameAreaSize.width()) {
+			newPosition.setX(mGameAreaSize.width() - (newPosition.x() - mGameAreaSize.width()));
+			spot->setSpeed(QPointF(-spot->speed().x(), spot->speed().y()));
+		}
+		if(newPosition.y() > mGameAreaSize.height()) {
+			newPosition.setY(mGameAreaSize.height() - (newPosition.y() - mGameAreaSize.height()));
+			spot->setSpeed(QPointF(spot->speed().x(), -spot->speed().y()));
+		}
+
+		if(spotIntersectCirkle(newPosition)) {
+			mGameDataModel->removeSpot(spot);
+			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, mRadiusOfCircles, curTime)));
+		} else {
+			spot->setPosition(newPosition);
+		}
+	}
+}
+
+bool GameController::spotIntersectCirkle(const QPointF &spotPosition) const {
+	return any_of(mGameDataModel->circles().begin(), mGameDataModel->circles().end(),
+								[&](CirclePtr c) {
+																		auto d = c->center() - spotPosition;
+																		return sqrt(pow(d.x(), 2) + pow(d.y(), 2)) <= c->radius();
+																 });
 }
 
 void GameController::createCircle(const QPointF &position) {
-	if(mGameDataModel->circles().isEmpty()) {
+	if(!mGameDataModel->userCreateCircle()) {
 		mGameDataModel->addCircle(CirclePtr(new Circle(position, mRadiusOfCircles, QDateTime::currentDateTime())));
+		mGameDataModel->setUserCreateCircle(true);
 	}
 }
 

@@ -21,12 +21,17 @@ public:
 	QList<QObject*> circlesGUI() const;
 	void addCircle(CirclePtr circle);
 	void removeCircle(CirclePtr circle);
+
 	const QList<FlyingSpotPtr> &spots() const;
 	QList<QObject*>spotsGUI() const;
 	void addSpot(FlyingSpotPtr spot);
 	void removeSpot(FlyingSpotPtr spot);
+
 	QDateTime lastUpdateTime() const;
 	void setlastUpdateTime(const QDateTime &lastUpdateTime);
+
+	bool userCreateCircle() const;
+	void setUserCreateCircle(bool userCreateCircle);
 signals:
 	void circlesChanged();
 	void spotsChanged();
@@ -34,6 +39,7 @@ private:
 	QList<CirclePtr> mCircles;
 	QList<FlyingSpotPtr> mSpots;	
 	QDateTime mLastUpdateTime;
+	bool mUserCreateCircle;
 };
 
 using GameDataModelPtr = std::shared_ptr<GameDataModel>;
