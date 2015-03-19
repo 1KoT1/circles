@@ -12,6 +12,7 @@ MainController::MainController(AppDataModelPtr appDataModel, QObject *parent) :
 	QObject(parent),
 	mAppDataModel(appDataModel)
 {
+
 }
 
 MainController::~MainController() {
@@ -23,5 +24,6 @@ void MainController::quit() {
 }
 
 void MainController::startGame() {
+	mAppDataModel->setDisplay(Displays::Game);
 }
 
