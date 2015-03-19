@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     circle.cpp \
     flyingspot.cpp \
     maincontroller.cpp \
-    appdatamodel.cpp
+    appdatamodel.cpp \
+    gamedatamodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,4 +22,5 @@ HEADERS += \
     circle.h \
     flyingspot.h \
     maincontroller.h \
-    appdatamodel.h
+    appdatamodel.h \
+    gamedatamodel.h

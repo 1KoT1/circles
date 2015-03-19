@@ -2,7 +2,8 @@
 
 AppDataModel::AppDataModel(QObject *parent) :
 	QObject(parent),
-	mDisplay(Displays::MainMenu)
+	mDisplay(Displays::MainMenu),
+	mGameDataModel(new GameDataModel(this))
 {
 
 }
@@ -20,5 +21,13 @@ void AppDataModel::setDisplay(const Displays::DisplaysEnum display) {
 		mDisplay = display;
 		emit displayChanged();
 	}
+}
+
+GameDataModelPtr AppDataModel::gameDataModel() const {
+	return mGameDataModel;
+}
+
+GameDataModel *AppDataModel::gameDataModelGUI() const {
+	return mGameDataModel.get();
 }
 
