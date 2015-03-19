@@ -1,3 +1,4 @@
+CONFIG += c++11
 TEMPLATE = app
 
 QT += qml quick
@@ -5,7 +6,8 @@ QT += qml quick
 SOURCES += main.cpp \
     circle.cpp \
     flyingspot.cpp \
-    maincontroller.cpp
+    maincontroller.cpp \
+    appdatamodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,4 +20,5 @@ include(deployment.pri)
 HEADERS += \
     circle.h \
     flyingspot.h \
-    maincontroller.h
+    maincontroller.h \
+    appdatamodel.h

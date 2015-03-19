@@ -2,15 +2,15 @@
 #include <QGuiApplication>
 #include <QWindow>
 
-const qreal DefaultRadiusOfCircles = 50;
-const long DefaultLifeTimeOfCircles = 5 * 1000;
-const uint DefaultNumberOfSpots = 10;
-const double DefaultSpeedOfSports = 30;
-/// Интервал обновления в милисекундах
-const int UdateSceneInterval = 1000 / 25;
+const qreal defaultRadiusOfCircles = 50;
+const long defaultLifeTimeOfCircles = 5 * 1000;
+const uint defaultNumberOfSpots = 10;
+const double defaultSpeedOfSports = 30;
+const int udateSceneInterval = 1000 / 25;
 
-MainController::MainController(QObject *parent) :
-	QObject(parent)
+MainController::MainController(AppDataModelPtr appDataModel, QObject *parent) :
+	QObject(parent),
+	mAppDataModel(appDataModel)
 {
 }
 
