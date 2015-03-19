@@ -4,7 +4,8 @@ QT += qml quick
 
 SOURCES += main.cpp \
     circle.cpp \
-    flyingspot.cpp
+    flyingspot.cpp \
+    maincontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,4 +17,5 @@ include(deployment.pri)
 
 HEADERS += \
     circle.h \
-    flyingspot.h
+    flyingspot.h \
+    maincontroller.h
