@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     flyingspot.cpp \
     maincontroller.cpp \
     appdatamodel.cpp \
-    gamedatamodel.cpp
+    gamedatamodel.cpp \
+    gamecontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,4 +24,5 @@ HEADERS += \
     flyingspot.h \
     maincontroller.h \
     appdatamodel.h \
-    gamedatamodel.h
+    gamedatamodel.h \
+    gamecontroller.h
