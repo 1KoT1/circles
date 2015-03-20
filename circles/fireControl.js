@@ -4,7 +4,7 @@ var fires = [];
 function updateCircles(circles) {
     if(circles.length > fires.length) {
         for(var i = fires.length; i < circles.length; i++) {
-            createCircle(circles[i])
+            createFire(circles[i])
         }
     } else {
         for(var i = circles.length; i < fires.length; i++) {
@@ -13,7 +13,7 @@ function updateCircles(circles) {
     }
 }
 
-function createCircle(circle) {
+function createFire(circle) {
     component = Qt.createComponent("Fire.qml");
     fires[circle.center] = component.createObject(gameDiplay, {"x": circle.center.x, "y": circle.center.y, "r": circle.radius});
 
