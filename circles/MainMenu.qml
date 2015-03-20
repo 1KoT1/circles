@@ -21,11 +21,13 @@ Rectangle {
         spacing: 2
 
         MainMenuBatton {
+            width: mainMenu.width
             text: qsTr("Начать игру")
             onClicked: mainController.startGame();
         }
 
         MainMenuBatton {
+            width: mainMenu.width
             text: qsTr("Выйти")
             onClicked: mainController.quit();
         }

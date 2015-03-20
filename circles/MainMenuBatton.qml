@@ -4,7 +4,7 @@ Rectangle {
     id: mainMenuBatton
     border.color: "white"
     border.width: 2
-    width: 100
+    width: battonTitle.width + 8 + border.width
     height: battonTitle.height + 8 + border.width
     color: "black"
 
