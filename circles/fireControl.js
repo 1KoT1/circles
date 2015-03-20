@@ -3,7 +3,6 @@ var fires = [];
 
 function updateCircles(circles) {
     if(component === undefined) {
-        console.debug("aaa");
         component = Qt.createComponent("Fire.qml");
     }
     if(circles.length > fires.length) {

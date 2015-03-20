@@ -7,16 +7,14 @@ const double PI = 3.14159265358979323846;
 
 using namespace std;
 
-GameController::GameController(GameDataModel* gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, uint numberOfSpots, double speedOfSports, QSizeF gameAreaSize, QObject *parent) :
+GameController::GameController(GameDataModel* gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, uint numberOfSpots, double speedOfSports, QObject *parent) :
 	QObject(parent),
 	mGameDataModel(gameDataModel),
 	mRadiusOfCircles(radiusOfCircles),
 	mLifeTimeOfCircles(lifeTimeOfCircles),
 	mNumberOfSpots(numberOfSpots),
-	mSpeedOfSports(speedOfSports),
-	mGameAreaSize(gameAreaSize)
+	mSpeedOfSports(speedOfSports)
 {
-    initGame();
 }
 
 GameController::~GameController() {
@@ -38,6 +36,7 @@ void GameController::updateScene() {
 		stopGame();
 	}
 
+	auto gameAreaSize = mGameDataModel->gameAreaSize();
 	for(auto spot: mGameDataModel->spots()) {
 		auto newPosition = spot->position() + spot->speed() * (deltaTime / 1000.0);
 		if(newPosition.x() < 0) {
@@ -48,12 +47,12 @@ void GameController::updateScene() {
 			newPosition.setY(0 - newPosition.y());
 			spot->setSpeed(QPointF(spot->speed().x(), -spot->speed().y()));
 		}
-		if(newPosition.x() > mGameAreaSize.width()) {
-			newPosition.setX(mGameAreaSize.width() - (newPosition.x() - mGameAreaSize.width()));
+		if(newPosition.x() > gameAreaSize.width()) {
+			newPosition.setX(gameAreaSize.width() - (newPosition.x() - gameAreaSize.width()));
 			spot->setSpeed(QPointF(-spot->speed().x(), spot->speed().y()));
 		}
-		if(newPosition.y() > mGameAreaSize.height()) {
-			newPosition.setY(mGameAreaSize.height() - (newPosition.y() - mGameAreaSize.height()));
+		if(newPosition.y() > gameAreaSize.height()) {
+			newPosition.setY(gameAreaSize.height() - (newPosition.y() - gameAreaSize.height()));
 			spot->setSpeed(QPointF(spot->speed().x(), -spot->speed().y()));
 		}
 
@@ -63,33 +62,33 @@ void GameController::updateScene() {
 		} else {
 			spot->setPosition(newPosition);
 		}
-    }
+	}
 }
 
 void GameController::initGame() {
-    mGameDataModel->setUserCreateCircle(false);
-    mGameDataModel->clearCircle();
-    mGameDataModel->clearSport();
+	mGameDataModel->setUserCreateCircle(false);
+	mGameDataModel->clearCircle();
+	mGameDataModel->clearSport();
 
-    default_random_engine generator;
-    uniform_real_distribution<qreal> distributionH(0, mGameAreaSize.width());
-    uniform_real_distribution<qreal> distributionV(0, mGameAreaSize.height());
-    uniform_real_distribution<qreal> distributionAngle(0, 2 * PI);
-    for(uint i = 0; i < mNumberOfSpots; i++){
-        double angle = distributionAngle(generator);
-        mGameDataModel->addSpot(FlyingSpotPtr(new FlyingSpot(QPointF(distributionH(generator), distributionV(generator)),
-                                                                                                                 QPointF(cos(angle)*mSpeedOfSports, sin(angle)*mSpeedOfSports)
-                                                                                                                 )));
-    }
+	default_random_engine generator;
+	uniform_real_distribution<qreal> distributionH(0, mGameDataModel->gameAreaSize().width());
+	uniform_real_distribution<qreal> distributionV(0, mGameDataModel->gameAreaSize().height());
+	uniform_real_distribution<qreal> distributionAngle(0, 2 * PI);
+	for(uint i = 0; i < mNumberOfSpots; i++){
+		double angle = distributionAngle(generator);
+		mGameDataModel->addSpot(FlyingSpotPtr(new FlyingSpot(QPointF(distributionH(generator), distributionV(generator)),
+																												 QPointF(cos(angle)*mSpeedOfSports, sin(angle)*mSpeedOfSports)
+																												 )));
+	}
 
-    mGameDataModel->setlastUpdateTime(QDateTime::currentDateTime());
+	mGameDataModel->setlastUpdateTime(QDateTime::currentDateTime());
 }
 
 bool GameController::spotIntersectCirkle(const QPointF &spotPosition) const {
 	return any_of(mGameDataModel->circles().begin(), mGameDataModel->circles().end(),
 								[&](CirclePtr c) {
-																		auto d = c->center() - spotPosition;
-																		return sqrt(pow(d.x(), 2) + pow(d.y(), 2)) <= c->radius();
+		auto d = c->center() - spotPosition;
+		return sqrt(pow(d.x(), 2) + pow(d.y(), 2)) <= c->radius();
 	});
 }
 
@@ -101,6 +100,10 @@ void GameController::createCircle(const QPointF &position) {
 	if(!mGameDataModel->userCreateCircle()) {
 		mGameDataModel->addCircle(CirclePtr(new Circle(position, mRadiusOfCircles, QDateTime::currentDateTime())));
 		mGameDataModel->setUserCreateCircle(true);
-    }
+	}
+}
+
+void GameController::setGameAreaSize(int width, int height) {
+	mGameDataModel->setGameAreaSize(QSizeF(width, height));
 }
 

@@ -36,5 +36,8 @@ Rectangle {
             }
         }
     }
+
+    onWidthChanged: mainController.gameController.setGameAreaSize(width, height);
+    onHeightChanged: mainController.gameController.setGameAreaSize(width, height);
 }
 

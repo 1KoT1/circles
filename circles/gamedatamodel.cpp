@@ -79,5 +79,13 @@ bool GameDataModel::userCreateCircle() const {
 }
 
 void GameDataModel::setUserCreateCircle(bool userCreateCircle) {
-    mUserCreateCircle = userCreateCircle;
+	mUserCreateCircle = userCreateCircle;
+}
+
+const QSizeF &GameDataModel::gameAreaSize() const {
+	return mGameAreaSize;
+}
+
+void GameDataModel::setGameAreaSize(const QSizeF &gameAreaSize) {
+	mGameAreaSize = gameAreaSize;
 }

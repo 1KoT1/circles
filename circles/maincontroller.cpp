@@ -30,14 +30,14 @@ void MainController::startGame() {
 																					 defaultLifeTimeOfCircles,
 																					 defaultNumberOfSpots,
 																					 defaultSpeedOfSports,
-																					 QGuiApplication::focusWindow()->size(),
 																					 this
 																					 ));
 	connect(mGameController.get(), SIGNAL(gameStoped()), SLOT(gameStopHandler()));
 	connect(&mTimer, SIGNAL(timeout()), mGameController.get(), SLOT(updateScene()));
 	emit gameControllerChanged();
-	mTimer.start(udateSceneInterval);
 	mAppDataModel->setDisplay(Displays::Game);
+	mGameController->initGame();
+	mTimer.start(udateSceneInterval);
 }
 
 GameController *MainController::gameController() const {

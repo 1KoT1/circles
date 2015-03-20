@@ -5,6 +5,7 @@
 #include "flyingspot.h"
 #include <memory>
 #include <QObject>
+#include <QSizeF>
 
 using CirclePtr = std::shared_ptr<Circle>;
 using FlyingSpotPtr = std::shared_ptr<FlyingSpot>;
@@ -21,27 +22,31 @@ public:
 	QList<QObject*> circlesGUI() const;
 	void addCircle(CirclePtr circle);
 	void removeCircle(CirclePtr circle);
-    void clearCircle();
+	void clearCircle();
 
 	const QList<FlyingSpotPtr> &spots() const;
 	QList<QObject*>spotsGUI() const;
 	void addSpot(FlyingSpotPtr spot);
 	void removeSpot(FlyingSpotPtr spot);
-    void clearSport();
+	void clearSport();
 
 	QDateTime lastUpdateTime() const;
 	void setlastUpdateTime(const QDateTime &lastUpdateTime);
 
 	bool userCreateCircle() const;
 	void setUserCreateCircle(bool userCreateCircle);
+
+	const QSizeF &gameAreaSize() const;
+	void setGameAreaSize(const QSizeF &gameAreaSize);
 signals:
 	void circlesChanged();
 	void spotsChanged();
 private:
 	QList<CirclePtr> mCircles;
-	QList<FlyingSpotPtr> mSpots;	
+	QList<FlyingSpotPtr> mSpots;
 	QDateTime mLastUpdateTime;
-    bool mUserCreateCircle;
+	bool mUserCreateCircle;
+	QSizeF mGameAreaSize;
 };
 
 #endif // GAMEDATAMODEL_H

@@ -9,10 +9,13 @@
 class GameController : public QObject {
 	Q_OBJECT
 public:
-    explicit GameController(GameDataModel *gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, uint mNumberOfSpots, double mSpeedOfSports, QSizeF gameAreaSize, QObject *parent = 0);
+	explicit GameController(GameDataModel *gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, uint mNumberOfSpots, double mSpeedOfSports, QObject *parent = 0);
 	virtual ~GameController();
 
+	void initGame();
+
 	Q_INVOKABLE void createCircle(const QPointF &position);
+	Q_INVOKABLE void setGameAreaSize(int width, int height);
 
 signals:
 	void gameStoped();
@@ -21,15 +24,13 @@ public slots:
 	void updateScene();
 
 private:
-    GameDataModel* mGameDataModel;
+	GameDataModel* mGameDataModel;
 	qreal mRadiusOfCircles;
 	/** Время жизни круга в милисекундах.*/
 	long mLifeTimeOfCircles;
 	uint mNumberOfSpots;
 	double mSpeedOfSports;
-	QSizeF mGameAreaSize;
 
-    void initGame();
 	bool spotIntersectCirkle(const QPointF &spotPosition) const;
 	void stopGame();
 };
