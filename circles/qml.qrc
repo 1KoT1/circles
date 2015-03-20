@@ -6,5 +6,7 @@
         <file>Game.qml</file>
         <file>particleA.png</file>
         <file>spot.png</file>
+        <file>Fire.qml</file>
+        <file>fireControl.js</file>
     </qresource>
 </RCC>
