@@ -22,6 +22,9 @@ signals:
 	void gameControllerChanged();
 
 public slots:
+private slots:
+	void gameStopHandler();
+
 private:
 	AppDataModelPtr mAppDataModel;
 	std::unique_ptr<GameController> mGameController;

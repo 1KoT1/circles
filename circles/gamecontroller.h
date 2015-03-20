@@ -15,6 +15,7 @@ public:
 	Q_INVOKABLE void createCircle(const QPointF &position);
 
 signals:
+	void gameStoped();
 
 public slots:
 	void updateScene();
@@ -29,6 +30,7 @@ private:
 	QSizeF mGameAreaSize;
 
 	bool spotIntersectCirkle(const QPointF &spotPosition) const;
+	void stopGame();
 };
 
 #endif // GAMECONTROLLER_H

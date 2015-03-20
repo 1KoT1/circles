@@ -33,6 +33,7 @@ void MainController::startGame() {
 																					 QGuiApplication::focusWindow()->size(),
 																					 this
 																					 ));
+	connect(mGameController.get(), SIGNAL(gameStoped()), SLOT(gameStopHandler()));
 	connect(&mTimer, SIGNAL(timeout()), mGameController.get(), SLOT(updateScene()));
 	emit gameControllerChanged();
 	mTimer.start(udateSceneInterval);
@@ -41,5 +42,11 @@ void MainController::startGame() {
 
 GameController *MainController::gameController() const {
 	return mGameController.get();
+}
+
+void MainController::gameStopHandler() {
+	mTimer.stop();
+	mGameController.release();
+	mAppDataModel->setDisplay(Displays::MainMenu);
 }
 

@@ -44,6 +44,10 @@ void GameController::updateScene() {
 		}
 	}
 
+	if(mGameDataModel->userCreateCircle() && mGameDataModel->circles().isEmpty()) {
+		stopGame();
+	}
+
 	for(auto spot: mGameDataModel->spots()) {
 		auto newPosition = spot->position() + spot->speed() * (deltaTime / 1000.0);
 		if(newPosition.x() < 0) {
@@ -77,7 +81,11 @@ bool GameController::spotIntersectCirkle(const QPointF &spotPosition) const {
 								[&](CirclePtr c) {
 																		auto d = c->center() - spotPosition;
 																		return sqrt(pow(d.x(), 2) + pow(d.y(), 2)) <= c->radius();
-																 });
+	});
+}
+
+void GameController::stopGame() {
+	emit gameStoped();
 }
 
 void GameController::createCircle(const QPointF &position) {
