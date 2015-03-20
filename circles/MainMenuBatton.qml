@@ -2,19 +2,21 @@ import QtQuick 2.0
 
 Rectangle {
     id: mainMenuBatton
+    border.color: "white"
+    border.width: 2
     width: 100
-    height: 23
-    color: "#383296"
-    border.color: "#000c72"
-    radius: 4
+    height: battonTitle.height + 8 + border.width
+    color: "black"
 
     property string text: "Batton"
     signal clicked
 
     Text {
+        id: battonTitle
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
         text: mainMenuBatton.text
+        color: "white"
     }
 
     MouseArea {
@@ -30,7 +32,7 @@ Rectangle {
 
             PropertyChanges {
                 target: mainMenuBatton
-                color: "#7e79cb"
+                color: "orange"
             }
         }
     ]
