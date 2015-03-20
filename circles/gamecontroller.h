@@ -9,7 +9,7 @@
 class GameController : public QObject {
 	Q_OBJECT
 public:
-	explicit GameController(GameDataModelPtr gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, uint mNumberOfSpots, double mSpeedOfSports, QSizeF gameAreaSize, QObject *parent = 0);
+    explicit GameController(GameDataModel *gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, uint mNumberOfSpots, double mSpeedOfSports, QSizeF gameAreaSize, QObject *parent = 0);
 	virtual ~GameController();
 
 	Q_INVOKABLE void createCircle(const QPointF &position);
@@ -21,7 +21,7 @@ public slots:
 	void updateScene();
 
 private:
-	GameDataModelPtr mGameDataModel;
+    GameDataModel* mGameDataModel;
 	qreal mRadiusOfCircles;
 	/** Время жизни круга в милисекундах.*/
 	long mLifeTimeOfCircles;

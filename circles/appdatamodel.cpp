@@ -23,11 +23,7 @@ void AppDataModel::setDisplay(const Displays::DisplaysEnum display) {
 	}
 }
 
-GameDataModelPtr AppDataModel::gameDataModel() const {
-	return mGameDataModel;
-}
-
-GameDataModel *AppDataModel::gameDataModelGUI() const {
-	return mGameDataModel.get();
+GameDataModel *AppDataModel::gameDataModel() {
+    return &mGameDataModel;
 }
 

@@ -7,7 +7,7 @@ const double PI = 3.14159265358979323846;
 
 using namespace std;
 
-GameController::GameController(GameDataModelPtr gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, uint numberOfSpots, double speedOfSports, QSizeF gameAreaSize, QObject *parent) :
+GameController::GameController(GameDataModel* gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, uint numberOfSpots, double speedOfSports, QSizeF gameAreaSize, QObject *parent) :
 	QObject(parent),
 	mGameDataModel(gameDataModel),
 	mRadiusOfCircles(radiusOfCircles),

@@ -23,15 +23,14 @@ public:
 class AppDataModel : public QObject {
 	Q_OBJECT
 	Q_PROPERTY(Displays::DisplaysEnum display READ display WRITE setDisplay NOTIFY displayChanged)
-	Q_PROPERTY(QObject* gameDataModel READ gameDataModelGUI NOTIFY gameDataModelChanged)
+    Q_PROPERTY(QObject* gameDataModel READ gameDataModel NOTIFY gameDataModelChanged)
 public:
 	explicit AppDataModel(QObject *parent = 0);
 	virtual ~AppDataModel();
 
 	Displays::DisplaysEnum display() const;
 	void setDisplay(const Displays::DisplaysEnum display);
-	GameDataModelPtr gameDataModel() const;
-	GameDataModel* gameDataModelGUI() const;
+    GameDataModel *gameDataModel();
 signals:
 	void displayChanged();
 	void gameDataModelChanged();
@@ -39,7 +38,7 @@ signals:
 public slots:
 private:
 	Displays::DisplaysEnum mDisplay;
-	GameDataModelPtr mGameDataModel;
+    GameDataModel mGameDataModel;
 };
 
 using AppDataModelPtr = std::shared_ptr<AppDataModel>;

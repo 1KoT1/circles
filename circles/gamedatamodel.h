@@ -42,6 +42,4 @@ private:
 	bool mUserCreateCircle;
 };
 
-using GameDataModelPtr = std::shared_ptr<GameDataModel>;
-
 #endif // GAMEDATAMODEL_H
