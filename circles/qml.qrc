@@ -8,5 +8,6 @@
         <file>spot.png</file>
         <file>Fire.qml</file>
         <file>fireControl.js</file>
+        <file>GameDisplay.qml</file>
     </qresource>
 </RCC>

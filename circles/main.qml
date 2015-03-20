@@ -9,6 +9,6 @@ Window {
 
     Loader{
         anchors.fill: parent;
-        source: appDataModel.display === Displays.Game? "Game.qml" : "MainMenu.qml";
+        source: appDataModel.display === Displays.Game? "GameDisplay.qml" : "MainMenu.qml";
     }
 }

@@ -16,6 +16,7 @@ public:
 
 	Q_INVOKABLE void createCircle(const QPointF &position);
 	Q_INVOKABLE void setGameAreaSize(int width, int height);
+	Q_INVOKABLE void stopGame();
 
 signals:
 	void gameStoped();
@@ -32,7 +33,6 @@ private:
 	double mSpeedOfSports;
 
 	bool spotIntersectCirkle(const QPointF &spotPosition) const;
-	void stopGame();
 };
 
 #endif // GAMECONTROLLER_H
