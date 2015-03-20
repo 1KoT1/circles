@@ -21,11 +21,13 @@ public:
 	QList<QObject*> circlesGUI() const;
 	void addCircle(CirclePtr circle);
 	void removeCircle(CirclePtr circle);
+    void clearCircle();
 
 	const QList<FlyingSpotPtr> &spots() const;
 	QList<QObject*>spotsGUI() const;
 	void addSpot(FlyingSpotPtr spot);
 	void removeSpot(FlyingSpotPtr spot);
+    void clearSport();
 
 	QDateTime lastUpdateTime() const;
 	void setlastUpdateTime(const QDateTime &lastUpdateTime);
@@ -39,7 +41,7 @@ private:
 	QList<CirclePtr> mCircles;
 	QList<FlyingSpotPtr> mSpots;	
 	QDateTime mLastUpdateTime;
-	bool mUserCreateCircle;
+    bool mUserCreateCircle;
 };
 
 #endif // GAMEDATAMODEL_H

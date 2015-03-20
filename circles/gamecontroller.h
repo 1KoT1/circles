@@ -29,6 +29,7 @@ private:
 	double mSpeedOfSports;
 	QSizeF mGameAreaSize;
 
+    void initGame();
 	bool spotIntersectCirkle(const QPointF &spotPosition) const;
 	void stopGame();
 };
