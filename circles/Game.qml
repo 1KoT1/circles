@@ -3,17 +3,7 @@ import QtQuick.Particles 2.0
 
 Rectangle {
     id: gameDiplay
-    gradient: Gradient {
-        GradientStop {
-            position: 0
-            color: "#1b74ff"
-        }
-
-        GradientStop {
-            position: 1
-            color: "#a9c9fa"
-        }
-    }
+    color: "black"
 
     MouseArea {
         anchors.fill: gameDiplay
@@ -47,13 +37,23 @@ Rectangle {
 
     Repeater {
         model: appDataModel.gameDataModel.spots
-        delegate: Image {
-            source: "bubble.svg"
-            property double r: 5
-            x: modelData.position.x - r
-            y: modelData.position.y - r
-            height: r * 2;
-            width: height
+        delegate: ParticleSystem {
+            property double r: 7
+            x: modelData.position.x
+            y: modelData.position.y
+
+            Emitter {
+                velocity: AngleDirection {
+                    angleVariation: 360
+                    magnitudeVariation: r
+                }
+                lifeSpan: 1000
+                emitRate: 5
+            }
+
+            ImageParticle {
+                source: "spot.png"
+            }
         }
     }
 }
