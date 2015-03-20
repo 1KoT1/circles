@@ -10,28 +10,13 @@ Rectangle {
         anchors.bottom: gameStopBatton.top
     }
 
-    Rectangle {
+    MainMenuBatton {
         id: gameStopBatton
-        border.width: 2
-        border.color: "white"
         anchors.left: gameDisplay.left
         anchors.bottom: gameDisplay.bottom
         anchors.right: gameDisplay.right
-        height: gameStopBattonTitle.font.pixelSize + 8 + border.width
-        color: "black"
-
-        Text {
-            id: gameStopBattonTitle
-            anchors.horizontalCenter: gameStopBatton.horizontalCenter
-            anchors.verticalCenter: gameStopBatton.verticalCenter
-            text: qsTr("Закончить игру")
-            color: "white"
-        }
-
-        MouseArea {
-            anchors.fill: gameStopBatton
-            onClicked: mainController.gameController.stopGame()
-        }
+        text: qsTr("Закончить игру")
+        onClicked: mainController.gameController.stopGame();
     }
 }
 
