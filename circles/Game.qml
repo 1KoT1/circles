@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Particles 2.0
 
 Rectangle {
     id: gameDiplay
@@ -21,13 +22,26 @@ Rectangle {
 
     Repeater {
         model: appDataModel.gameDataModel.circles
-        delegate: Image {
-            source: "bubble.svg"
+        delegate: ParticleSystem {
             property double r: modelData.radius
-            x: modelData.center.x - r
-            y: modelData.center.y - r
-            height: r * 2;
-            width: height
+            x: modelData.center.x
+            y: modelData.center.y
+
+            Emitter {
+                id: fireEmitter
+                velocity: AngleDirection {
+                    angleVariation: 360
+                    magnitudeVariation: 10
+                    magnitude: r - magnitudeVariation
+                }
+                lifeSpan: 1000
+                emitRate: 1000
+            }
+
+            ImageParticle {
+                source: "particleA.png"
+                color: "Orange"
+            }
         }
     }
 

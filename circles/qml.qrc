@@ -5,5 +5,6 @@
         <file>MainMenuBatton.qml</file>
         <file>Game.qml</file>
         <file>bubble.svg</file>
+        <file>particleA.png</file>
     </qresource>
 </RCC>
