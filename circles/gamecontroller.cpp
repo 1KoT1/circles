@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <ctime>
 #include "gamecontroller.h"
 #include <math.h>
 #include <random>
@@ -79,7 +80,7 @@ void GameController::initGame() {
 	mGameDataModel->clearCircle();
 	mGameDataModel->clearSport();
 
-	default_random_engine generator;
+	default_random_engine generator(time(0));
 	uniform_real_distribution<qreal> distributionH(0, mGameDataModel->gameAreaSize().width());
 	uniform_real_distribution<qreal> distributionV(0, mGameDataModel->gameAreaSize().height());
 	uniform_real_distribution<qreal> distributionAngle(0, 2 * PI);
