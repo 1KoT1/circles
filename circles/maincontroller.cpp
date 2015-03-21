@@ -2,13 +2,6 @@
 #include <QGuiApplication>
 #include <QWindow>
 
-const double defaultRadiusOfCircles = 50;
-const int defaultLifeTimeOfCircles = 5 * 1000;
-const int defaultTimeOfCircleBurn = 500;
-const uint defaultNumberOfSpots = 10;
-const double defaultSpeedOfSports = 60;
-const int udateSceneInterval = 1000 / 25;
-
 #if defined(Q_OS_ANDROID)
 const QString pathToSettingFile = "qrc:/Settings.ini";
 #else

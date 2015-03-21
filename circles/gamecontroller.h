@@ -6,6 +6,13 @@
 #include <QObject>
 #include <QSizeF>
 
+const double defaultRadiusOfCircles = 50;
+const int defaultLifeTimeOfCircles = 5 * 1000;
+const int defaultTimeOfCircleBurn = 500;
+const uint defaultNumberOfSpots = 10;
+const double defaultSpeedOfSports = 60;
+const int udateSceneInterval = 1000 / 25;
+
 class GameController : public QObject {
 	Q_OBJECT
 public:
