@@ -1,11 +1,5 @@
 #include "flyingspot.h"
 
-FlyingSpot::FlyingSpot(QObject *parent) :
-	FlyingSpot(QPointF(0,0), QPointF(0,0), parent)
-{
-
-}
-
 FlyingSpot::FlyingSpot(const QPointF &position, const QPointF &speed, QObject *parent) :
 	QObject(parent),
 	mPosition(position),

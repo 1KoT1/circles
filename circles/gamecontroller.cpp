@@ -66,7 +66,7 @@ void GameController::updateScene() {
 			spot->setSpeed(QPointF(spot->speed().x(), -spot->speed().y()));
 		}
 
-		if(spotIntersectCirkle(newPosition)) {
+		if(spotIntersectCircle(newPosition)) {
 			mGameDataModel->removeSpot(spot);
 			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, baseRadiusOfCircle, curTime)));
 		} else {
@@ -94,7 +94,7 @@ void GameController::initGame() {
 	mGameDataModel->setlastUpdateTime(QDateTime::currentDateTime());
 }
 
-bool GameController::spotIntersectCirkle(const QPointF &spotPosition) const {
+bool GameController::spotIntersectCircle(const QPointF &spotPosition) const {
 	return any_of(mGameDataModel->circles().begin(), mGameDataModel->circles().end(),
 								[&](CirclePtr c) {
 		auto d = c->center() - spotPosition;
