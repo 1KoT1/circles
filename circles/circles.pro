@@ -28,7 +28,7 @@ HEADERS += \
     gamecontroller.h
 
 DISTFILES += \
-		Settings.ini \
+		input.txt \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/AndroidManifest.xml \
     android/gradlew.bat \

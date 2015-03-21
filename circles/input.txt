@@ -1,0 +1,5 @@
+CountPoints=20
+BornTime=0.5
+LifeTime=1.0
+RadiusOfCircles=50
+SpeedOfPoints=60
