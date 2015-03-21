@@ -7,13 +7,15 @@ const double PI = 3.14159265358979323846;
 
 using namespace std;
 
-GameController::GameController(GameDataModel* gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, uint numberOfSpots, double speedOfSports, QObject *parent) :
+GameController::GameController(GameDataModel* gameDataModel, qreal radiusOfCircles, long lifeTimeOfCircles, long timeOfCircleBurn, uint numberOfSpots, double speedOfSports, QObject *parent) :
 	QObject(parent),
 	mGameDataModel(gameDataModel),
 	mRadiusOfCircles(radiusOfCircles),
 	mLifeTimeOfCircles(lifeTimeOfCircles),
+	mTimeOfCircleBurn(timeOfCircleBurn),
 	mNumberOfSpots(numberOfSpots),
-	mSpeedOfSports(speedOfSports)
+	mSpeedOfSports(speedOfSports),
+	mSpeeOfCircleBurn(mRadiusOfCircles / mTimeOfCircleBurn)
 {
 }
 
@@ -27,8 +29,14 @@ void GameController::updateScene() {
 	mGameDataModel->setlastUpdateTime(curTime);
 
 	for(auto circle: mGameDataModel->circles()) {
-		if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles ) {
+		if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles + mTimeOfCircleBurn ) {
 			mGameDataModel->removeCircle(circle);
+		} else if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles &&
+								circle->radius() != mRadiusOfCircles)
+		{
+			circle->setRadius(mRadiusOfCircles);
+		} else {
+			circle->setRadius(mSpeeOfCircleBurn * deltaTime );
 		}
 	}
 
@@ -58,7 +66,7 @@ void GameController::updateScene() {
 
 		if(spotIntersectCirkle(newPosition)) {
 			mGameDataModel->removeSpot(spot);
-			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, mRadiusOfCircles, curTime)));
+			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, 0, curTime)));
 		} else {
 			spot->setPosition(newPosition);
 		}

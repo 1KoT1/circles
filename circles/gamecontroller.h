@@ -9,7 +9,7 @@
 class GameController : public QObject {
 	Q_OBJECT
 public:
-	explicit GameController(GameDataModel *gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, uint mNumberOfSpots, double mSpeedOfSports, QObject *parent = 0);
+	explicit GameController(GameDataModel *gameDataModel, qreal mRadiusOfCircles, long mLifeTimeOfCircles, long timeOfCircleBurn, uint mNumberOfSpots, double mSpeedOfSports, QObject *parent = 0);
 	virtual ~GameController();
 
 	void initGame();
@@ -29,8 +29,12 @@ private:
 	qreal mRadiusOfCircles;
 	/** Время жизни круга в милисекундах.*/
 	long mLifeTimeOfCircles;
+	/** Время в течении которогокруг растёт. В милисекундах.*/
+	long mTimeOfCircleBurn;
 	uint mNumberOfSpots;
 	double mSpeedOfSports;
+	/** Скорость роста круга. Чтобы не пересчитывать многократно, сохраняю значение заранее.*/
+	double mSpeeOfCircleBurn;
 
 	bool spotIntersectCirkle(const QPointF &spotPosition) const;
 };
