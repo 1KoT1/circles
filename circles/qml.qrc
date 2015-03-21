@@ -9,5 +9,7 @@
         <file>Fire.qml</file>
         <file>fireControl.js</file>
         <file>GameDisplay.qml</file>
+        <file>Settings.ini</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>
