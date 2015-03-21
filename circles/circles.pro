@@ -38,3 +38,5 @@ DISTFILES += \
     android/gradlew
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+RC_FILE = circles.rc
