@@ -18,7 +18,7 @@ function updateCircles(circles) {
 }
 
 function createFire(circle) {
-    fires.push(component.createObject(gameDiplay, {"x": circle.center.x, "y": circle.center.y, "r": circle.radius}));
+    fires.push(component.createObject(gameDiplay, {"x": circle.center.x, "y": circle.center.y, "r": Qt.binding(function() { return circle.radius; })}));
 
     if (fires[fires.length - 1] === null) {
         console.error(qsTr("Ошибка создания объекта"));
