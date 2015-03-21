@@ -38,12 +38,12 @@ void MainController::startGame() {
 		radiusOfCircles = defaultRadiusOfCircles;
 	}
 
-	auto lifeTimeOfCircles = settings.value(lifeTimeOfCirclesSettingName, defaultLifeTimeOfCircles).toDouble(&convertIsOk) * 1000;
+    auto lifeTimeOfCircles = settings.value(lifeTimeOfCirclesSettingName, defaultLifeTimeOfCircles / 1000.0).toDouble(&convertIsOk) * 1000;
 	if(!convertIsOk) {
 		lifeTimeOfCircles = defaultLifeTimeOfCircles;
 	}
 
-	auto timeOfCircleBurn = settings.value(bornTimeSettingName, defaultTimeOfCircleBurn).toDouble(&convertIsOk) * 1000;
+    auto timeOfCircleBurn = settings.value(bornTimeSettingName, defaultTimeOfCircleBurn / 1000.0).toDouble(&convertIsOk) * 1000;
 	if(!convertIsOk) {
 		timeOfCircleBurn = defaultTimeOfCircleBurn;
 	}
