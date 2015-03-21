@@ -66,7 +66,7 @@ void GameController::updateScene() {
 
 		if(spotIntersectCirkle(newPosition)) {
 			mGameDataModel->removeSpot(spot);
-			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, 0, curTime)));
+			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, baseRadiusOfCircle, curTime)));
 		} else {
 			spot->setPosition(newPosition);
 		}
@@ -106,7 +106,7 @@ void GameController::stopGame() {
 
 void GameController::createCircle(const QPointF &position) {
 	if(!mGameDataModel->userCreateCircle()) {
-		mGameDataModel->addCircle(CirclePtr(new Circle(position, mRadiusOfCircles, QDateTime::currentDateTime())));
+		mGameDataModel->addCircle(CirclePtr(new Circle(position, baseRadiusOfCircle, QDateTime::currentDateTime())));
 		mGameDataModel->setUserCreateCircle(true);
 	}
 }

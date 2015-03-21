@@ -13,6 +13,8 @@ const uint defaultNumberOfSpots = 10;
 const double defaultSpeedOfSports = 60;
 const int udateSceneInterval = 1000 / 25;
 
+const double baseRadiusOfCircle = 0;
+
 class GameController : public QObject {
 	Q_OBJECT
 public:
