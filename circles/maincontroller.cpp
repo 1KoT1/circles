@@ -2,11 +2,21 @@
 #include <QGuiApplication>
 #include <QWindow>
 
-const qreal defaultRadiusOfCircles = 50;
-const long defaultLifeTimeOfCircles = 5 * 1000;
+const double defaultRadiusOfCircles = 50;
+const int defaultLifeTimeOfCircles = 5 * 1000;
 const uint defaultNumberOfSpots = 10;
-const double defaultSpeedOfSports = 30;
+const double defaultSpeedOfSports = 60;
 const int udateSceneInterval = 1000 / 25;
+
+#if defined(Q_OS_ANDROID)
+const QString pathToSettingFile = "qrc:/Settings.ini";
+#else
+const QString pathToSettingFile = "./Settings.ini";
+#endif
+const QString radiusOfCirclesSettingName = "GameParameters/RadiusOfCircles";
+const QString lifeTimeOfCirclesSettingName = "GameParameters/LifeTimeOfCircles";
+const QString numberOfSpotsSettingName = "GameParameters/NumberOfSpots";
+const QString speedOfSportsSettingName = "GameParameters/SpeedOfSports";
 
 MainController::MainController(AppDataModelPtr appDataModel, QObject *parent) :
 	QObject(parent),
@@ -25,11 +35,35 @@ void MainController::quit() {
 }
 
 void MainController::startGame() {
+	QSettings settings(pathToSettingFile, QSettings::IniFormat, this);
+	bool convertIsOk = false;
+
+	auto radiusOfCircles = settings.value(radiusOfCirclesSettingName, defaultRadiusOfCircles).toDouble(&convertIsOk);
+	if(!convertIsOk) {
+		radiusOfCircles = defaultRadiusOfCircles;
+	}
+
+	auto lifeTimeOfCircles = settings.value(lifeTimeOfCirclesSettingName, defaultLifeTimeOfCircles).toInt(&convertIsOk);
+	if(!convertIsOk) {
+		lifeTimeOfCircles = defaultLifeTimeOfCircles;
+	}
+
+	auto numberOfSpots = settings.value(numberOfSpotsSettingName, defaultNumberOfSpots).toUInt(&convertIsOk);
+	if(!convertIsOk) {
+		numberOfSpots = defaultNumberOfSpots;
+	}
+
+	auto speedOfSports = settings.value(speedOfSportsSettingName, defaultSpeedOfSports).toDouble(&convertIsOk);
+	if(!convertIsOk) {
+		speedOfSports = defaultSpeedOfSports;
+	}
+	qDebug()<<settings.status();
+
 	mGameController.reset(new GameController(mAppDataModel->gameDataModel(),
-																					 defaultRadiusOfCircles,
-																					 defaultLifeTimeOfCircles,
-																					 defaultNumberOfSpots,
-																					 defaultSpeedOfSports,
+																					 radiusOfCircles,
+																					 lifeTimeOfCircles,
+																					 numberOfSpots,
+																					 speedOfSports,
 																					 this
 																					 ));
 	connect(mGameController.get(), SIGNAL(gameStoped()), SLOT(gameStopHandler()));
