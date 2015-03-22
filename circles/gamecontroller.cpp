@@ -37,8 +37,8 @@ void GameController::updateScene() {
 		{
 			circle->setRadius(mRadiusOfCircles);
 		} else {
-			auto newRadiuse = mSpeeOfCircleBurn * circle->timeOfCreation().msecsTo(curTime);
-			circle->setRadius(min(newRadiuse, mRadiusOfCircles));
+			auto newRadius = mSpeeOfCircleBurn * circle->timeOfCreation().msecsTo(curTime);
+			circle->setRadius(min(newRadius, mRadiusOfCircles));
 		}
 	}
 
