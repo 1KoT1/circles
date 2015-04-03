@@ -11,5 +11,6 @@
         <file>GameDisplay.qml</file>
         <file>input.txt</file>
         <file>logo.png</file>
+        <file>UpdatableRepeater.qml</file>
     </qresource>
 </RCC>

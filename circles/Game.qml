@@ -37,6 +37,14 @@ Rectangle {
         }
     }
 
+    UpdatableRepeater{
+        model: appDataModel.gameDataModel.circles
+        delegate: Text{
+            text: qsTr("Делегат")
+            color: "white"
+        }
+    }
+
     onWidthChanged: mainController.gameController.setGameAreaSize(width, height);
     onHeightChanged: mainController.gameController.setGameAreaSize(width, height);
 }
