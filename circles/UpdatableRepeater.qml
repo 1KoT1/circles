@@ -9,7 +9,7 @@ Item {
     signal itemAdded(int index, Item item)
     signal itemRemoved(int index, Item item)
 
-    property list dataKeys
+    property variant dataKeys: []
     onModelChanged: {
         console.debug(qsTr("Обновилась модель."));
         if(model === null) {
@@ -23,23 +23,44 @@ Item {
         }
 
         for(var j = 0; j < children.length; j++) {
-            //            console.debug(qsTr("modelData %1").arg(delegate.modelData));
+            var needRemove = true;
+            for(var k = 0; k < model.length; k++) {
+                if(dataKeys[j] === model[k]) {
+                    needRemove = false;
+                    break;
+                }
+            }
+            if(needRemove) {
+                console.debug(qsTr("Удаляю экземпляр делегата."));
+                children[j].destroy()
+                dataKeys.splice(j, 1);
+            }
         }
 
         for(var i = 0; i < model.length; i++) {
-            var newObj = delegate.createObject(updatableRepeater, {"modelData": Qt.binding(function() { return model[i]; })});
+            var needCreate = true;
+            for(var n = 0; n < dataKeys.length; n++) {
+                if(dataKeys[n] === model[i]) {
+                    needCreate = false;
+                    break;
+                }
+            }
 
-            if (newObj === null) {
-                console.error(qsTr("Ошибка создания объекта."));
-            } else {
-                //                resources.add("jjiii");
-                dataKeys.add(model[i])
-                itemAdded(i, newObj);
+            if(needCreate) {
+                console.debug(qsTr("Создаю экземпляр делегата."));
+                var newObj = delegate.createObject(updatableRepeater, {"modelData": Qt.binding(function() { return model[i]; })});
+
+                if (newObj === null) {
+                    console.error(qsTr("Ошибка создания объекта."));
+                } else {
+                    dataKeys.push(model[i]);
+                    itemAdded(i, newObj);
+                }
             }
         }
 
         count = children.length;
-        console.debug(qsTr("Количество элементов: %1 %2 %3").arg(children.length).arg(resources.length).arg(dataKeys.length));
+        console.debug(qsTr("Количество элементов: %1 %2").arg(children.length).arg(dataKeys.length));
     }
 }
 
