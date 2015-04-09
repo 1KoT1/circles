@@ -9,7 +9,6 @@ Item {
     signal itemAdded(int index, Item item)
     signal itemRemoved(int index, Item item)
 
-    property variant dataKeys: []
     onModelChanged: {
         console.debug(qsTr("Обновилась модель."));
         if(model === null) {
@@ -22,25 +21,30 @@ Item {
             return;
         }
 
-        for(var j = 0; j < children.length; j++) {
+//        for(var modelItemIndex = 0; modelItemIndex < model.length; modelItemIndex++) {
+//            console.debug(model[modelItemIndex].toString());
+//        }
+
+        for(var delegateIndex = 0; delegateIndex < children.length; delegateIndex++) {
             var needRemove = true;
-            for(var k = 0; k < model.length; k++) {
-                if(dataKeys[j] === model[k]) {
+            for(var modelIndex = 0; modelIndex < model.length; modelIndex++) {
+                if(children[delegateIndex].objectName === model[modelIndex].toString()) {
                     needRemove = false;
                     break;
                 }
             }
             if(needRemove) {
                 console.debug(qsTr("Удаляю экземпляр делегата."));
-                children[j].destroy()
-                dataKeys.splice(j, 1);
+                console.debug(qsTr("____Количество делегатов: %1").arg(children.length));
+                children[delegateIndex].destroy();
+                console.debug(qsTr("____Количество делегатов: %1").arg(children.length));
             }
         }
 
-        for(var i = 0; i < model.length; i++) {
+        for(var modelItemIndex = 0; modelItemIndex < model.length; modelItemIndex++) {
             var needCreate = true;
-            for(var n = 0; n < dataKeys.length; n++) {
-                if(dataKeys[n] === model[i]) {
+            for(var delegateIndex = 0; delegateIndex < children.length; delegateIndex++) {
+                if(children[delegateIndex].objectName === model[modelItemIndex].toString()) {
                     needCreate = false;
                     break;
                 }
@@ -48,19 +52,19 @@ Item {
 
             if(needCreate) {
                 console.debug(qsTr("Создаю экземпляр делегата."));
-                var newObj = delegate.createObject(updatableRepeater, {"modelData": Qt.binding(function() { return model[i]; })});
+                var newObj = delegate.createObject(updatableRepeater, {"objectName": model[modelItemIndex].toString(), "modelData": Qt.binding(function() { return model[modelItemIndex]; })});
 
                 if (newObj === null) {
                     console.error(qsTr("Ошибка создания объекта."));
                 } else {
-                    dataKeys.push(model[i]);
-                    itemAdded(i, newObj);
+                    itemAdded(modelItemIndex, newObj);
+//                    console.debug(qsTr("Создан делегат с id: %1").arg(children[children.length - 1].objectName));
                 }
             }
         }
 
         count = children.length;
-        console.debug(qsTr("Количество элементов: %1 %2").arg(children.length).arg(dataKeys.length));
+        console.debug(qsTr("Количество элементов: %1").arg(children.length));
     }
 }
 
