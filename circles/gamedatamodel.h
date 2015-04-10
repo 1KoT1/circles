@@ -37,7 +37,7 @@ public:
 	 *
 	 * @param circle Указатель на "пузырь", который надо уничтожить.
 	 */
-	void removeCircle(CirclePtr circle);	
+	void removeCircle(CirclePtr circle);
 	/** Уничтожить все "пузыри"
 	 */
 	void clearCircle();
