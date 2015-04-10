@@ -42,7 +42,7 @@ void GameController::updateScene() {
 		}
 	}
 
-	if(mGameDataModel->userCreateCircle() && mGameDataModel->circles().isEmpty()) {
+	if(mGameDataModel->userCreateCircle() && mGameDataModel->circles().empty()) {
 		stopGame();
 	}
 

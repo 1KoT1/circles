@@ -14,7 +14,7 @@ GameDataModel::~GameDataModel() {
 
 }
 
-const QList<CirclePtr> &GameDataModel::circles() const {
+const CirclesCollection &GameDataModel::circles() const {
     return mCircles;
 }
 
@@ -25,12 +25,14 @@ QList<QObject *> GameDataModel::circlesGUI() const {
 }
 
 void GameDataModel::addCircle(CirclePtr circle) {
-    mCircles.append(circle);
+		mCircles.push_back(circle);
     emit circlesChanged();
 }
 
 void GameDataModel::removeCircle(CirclePtr circle) {
-    if(mCircles.removeOne(circle)) {
+		auto oldSize = mCircles.size();
+		mCircles.remove(circle);
+		if(mCircles.size() != oldSize) {
         emit circlesChanged();
     }
 }

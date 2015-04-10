@@ -3,11 +3,13 @@
 
 #include "circle.h"
 #include "flyingspot.h"
+#include <list>
 #include <memory>
 #include <QObject>
 #include <QSizeF>
 
 using CirclePtr = std::shared_ptr<Circle>;
+using CirclesCollection = std::list<CirclePtr>;
 using FlyingSpotPtr = std::shared_ptr<FlyingSpot>;
 
 /** Модель данных игры
@@ -22,7 +24,7 @@ public:
 
 	/** Сущствующие "пузыри"
 	 */
-	const QList<CirclePtr> &circles() const;
+	const CirclesCollection &circles() const;
 	/** Список указателей на "пузыри" для передачи в QML.
 	 */
 	QList<QObject*> circlesGUI() const;
@@ -84,7 +86,7 @@ signals:
 	void circlesChanged();
 	void spotsChanged();
 private:
-	QList<CirclePtr> mCircles;
+	CirclesCollection mCircles;
 	QList<FlyingSpotPtr> mSpots;
 	QDateTime mLastUpdateTime;
 	bool mUserCreateCircle;
