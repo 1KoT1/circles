@@ -52,7 +52,8 @@ Item {
 
             if(needCreate) {
                 console.debug(qsTr("Создаю экземпляр делегата."));
-                var newObj = delegate.createObject(updatableRepeater, {"objectName": model[modelItemIndex].toString(), "modelData": Qt.binding(function() { return model[modelItemIndex]; })});
+                var newY = children.length > 0 ? children[children.length - 1].y + children[children.length - 1].height : 0;
+                var newObj = delegate.createObject(updatableRepeater, {"objectName": model[modelItemIndex].toString(), "modelData": Qt.binding(function() { return model[modelItemIndex]; }), "x": updatableRepeater.x, "y": newY});
 
                 if (newObj === null) {
                     console.error(qsTr("Ошибка создания объекта."));
