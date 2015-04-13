@@ -37,6 +37,14 @@ void GameDataModel::removeCircle(CirclePtr circle) {
 	}
 }
 
+void GameDataModel::removeCircles(const std::function<bool(const CirclePtr &)> &p) {
+	auto oldSize = mCircles.size();
+	mCircles.remove_if(p);
+	if(mCircles.size() != oldSize) {
+		emit circlesChanged();
+	}
+}
+
 void GameDataModel::clearCircle() {
 	mCircles.clear();
 	emit circlesChanged();

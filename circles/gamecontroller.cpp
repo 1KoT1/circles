@@ -29,11 +29,11 @@ void GameController::updateScene() {
 	auto deltaTime = mGameDataModel->lastUpdateTime().msecsTo(curTime);
 	mGameDataModel->setlastUpdateTime(curTime);
 
+	mGameDataModel->removeCircles([&](const shared_ptr<Circle> &c) -> bool { return c->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles + mTimeOfCircleBurn; });
+
 	for(auto circle: mGameDataModel->circles()) {
-		if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles + mTimeOfCircleBurn ) {
-			mGameDataModel->removeCircle(circle);
-		} else if ( circle->timeOfCreation().msecsTo(curTime) >= mLifeTimeOfCircles &&
-								circle->radius() != mRadiusOfCircles)
+		if ( circle->timeOfCreation().msecsTo(curTime) >= mTimeOfCircleBurn &&
+				 circle->radius() != mRadiusOfCircles)
 		{
 			circle->setRadius(mRadiusOfCircles);
 		} else {

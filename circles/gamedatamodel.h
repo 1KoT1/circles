@@ -3,6 +3,7 @@
 
 #include "circle.h"
 #include "flyingspot.h"
+#include <functional>
 #include <list>
 #include <memory>
 #include <QObject>
@@ -38,6 +39,11 @@ public:
 	 * @param circle Указатель на "пузырь", который надо уничтожить.
 	 */
 	void removeCircle(CirclePtr circle);
+	/** Уничтожить"пузыри" подходящие под условие.
+	 *
+	 * @param p Унарный предикат, который возвращает true , если "пузырь" должен быть уничтожен.
+	 */
+	void removeCircles(const std::function<bool(const CirclePtr &)> &p);
 	/** Уничтожить все "пузыри"
 	 */
 	void clearCircle();
