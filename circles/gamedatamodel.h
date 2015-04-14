@@ -12,6 +12,7 @@
 using CirclePtr = std::shared_ptr<Circle>;
 using CirclesCollection = std::list<CirclePtr>;
 using FlyingSpotPtr = std::shared_ptr<FlyingSpot>;
+using FlyingSpotCollection = std::list<FlyingSpotPtr>;
 
 /** Модель данных игры
  */
@@ -50,7 +51,7 @@ public:
 
 	/** Сущствующие точки
 	 */
-	const QList<FlyingSpotPtr> &spots() const;
+	const FlyingSpotCollection &spots() const;
 	/** Список указателей на точкки для передачи в QML.
 	 */
 	QList<QObject*>spotsGUI() const;
@@ -93,7 +94,7 @@ signals:
 	void spotsChanged();
 private:
 	CirclesCollection mCircles;
-	QList<FlyingSpotPtr> mSpots;
+	FlyingSpotCollection mSpots;
 	QDateTime mLastUpdateTime;
 	bool mUserCreateCircle;
 	QSizeF mGameAreaSize;

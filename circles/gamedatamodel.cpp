@@ -50,7 +50,7 @@ void GameDataModel::clearCircle() {
 	emit circlesChanged();
 }
 
-const QList<FlyingSpotPtr> &GameDataModel::spots() const {
+const FlyingSpotCollection &GameDataModel::spots() const {
 	return mSpots;
 }
 
@@ -61,12 +61,14 @@ QList<QObject *> GameDataModel::spotsGUI() const {
 }
 
 void GameDataModel::addSpot(FlyingSpotPtr spot) {
-	mSpots.append(spot);
+	mSpots.push_back(spot);
 	emit spotsChanged();
 }
 
 void GameDataModel::removeSpot(FlyingSpotPtr spot) {
-	if(mSpots.removeOne(spot)) {
+	auto oldSize = mSpots.size();
+	mSpots.remove(spot);
+	if(mCircles.size() != oldSize) {
 		emit spotsChanged();
 	}
 }

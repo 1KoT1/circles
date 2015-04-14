@@ -46,6 +46,7 @@ void GameController::updateScene() {
 		stopGame();
 	}
 
+	list<FlyingSpotPtr> remSpots;
 	auto gameAreaSize = mGameDataModel->gameAreaSize();
 	for(auto spot: mGameDataModel->spots()) {
 		auto newPosition = spot->position() + spot->speed() * (deltaTime / 1000.0);
@@ -67,11 +68,14 @@ void GameController::updateScene() {
 		}
 
 		if(spotIntersectCircle(newPosition)) {
-			mGameDataModel->removeSpot(spot);
+			remSpots.push_back(spot);
 			mGameDataModel->addCircle(CirclePtr(new Circle(newPosition, baseRadiusOfCircle, curTime)));
 		} else {
 			spot->setPosition(newPosition);
 		}
+	}
+	for(auto spot: remSpots) {
+		mGameDataModel->removeSpot(spot);
 	}
 }
 
